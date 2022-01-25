@@ -3,6 +3,7 @@ import logo from "../logo.svg";
 import styles from "./App.module.scss";
 import * as API from "../api/characters";
 import * as helpers from "./helpers";
+import CharacterCard from "./cards/character";
 
 // Character list is available in the public directory
 
@@ -51,7 +52,9 @@ export default function App() {
       </header>
 
       <section className="App-content">
-        {/* Lovely character list goes here */}
+        {state.characters.map((character) => (
+          <CharacterCard {...character} key={character.significanceIndex} />
+        ))}
       </section>
     </div>
   );
