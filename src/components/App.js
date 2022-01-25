@@ -22,6 +22,9 @@ const orderCategories = [
 
 export default function App() {
   const [state, setState] = useState({
+    //purpose of the permanent state is to keep intial data instead of fetching.
+    //Normaly with real api I would do another request to search by category in backend
+    permanentCharacters: [],
     characters: [],
     searchCategories: [],
     orderCategories: orderCategories,
@@ -58,8 +61,25 @@ export default function App() {
     getCharacters();
   }, [getCharacters]);
 
-  const searchByCategory = (e) => {};
-  const orderBy = (e) => {};
+  const searchByCategory = (e) => {
+    const category = e.target.value;
+
+    const characters = state.permanentCharacters.filter(
+      (c) => c.category === category
+    );
+    setState((state) => ({ ...state, characters }));
+  };
+
+  const orderBy = (e) => {
+    const category = e.target.value;
+    const characters = state.characters.sort((a, b) => {
+      if (category === "alphabetical") {
+        return a.name.localeCompare(b.name);
+      }
+      return a.significanceIndex - b.significanceIndex;
+    });
+    setState((state) => ({ ...state, characters }));
+  };
 
   return (
     <div className={styles.App}>
