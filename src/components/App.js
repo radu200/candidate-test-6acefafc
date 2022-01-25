@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import logo from "../logo.svg";
 import styles from "./App.module.scss";
 import * as API from "../api/characters";
+import * as helpers from "./helpers";
 
 // Character list is available in the public directory
 
@@ -17,11 +18,15 @@ export default function App() {
     try {
       setState((state) => ({ ...state, spinner: true }));
       const res = await API.getCharacters();
+
       if (res.status === 200) {
+        const searchCategories = helpers.generateSearchCategories(res.data);
+
         setState((state) => ({
           ...state,
           permanentCharacters: res.data,
           characters: res.data,
+          searchCategories,
         }));
       }
     } catch (err) {
