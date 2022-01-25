@@ -88,22 +88,28 @@ export default function App() {
         <h1 className="App-title">Lord of the Rings Character Index</h1>
       </header>
 
-      <section className="App-content">
-        <SearchInput
-          data={state.searchCategories}
-          id="categorySearch"
-          title="Category"
-          onChange={searchByCategory}
-        />
-        <SearchInput
-          data={state.orderCategories}
-          id="orderSearch"
-          title="Order By"
-          onChange={orderBy}
-        />
-        {state.characters.map((character) => (
-          <CharacterCard {...character} key={character.significanceIndex} />
-        ))}
+      <section className={styles["App-content"]}>
+        <div className={styles["Container-feed"]}>
+          <div className={styles["Search-wrapper"]}>
+            <div className={styles["Search-container"]}>
+              <SearchInput
+                data={state.searchCategories}
+                id="categorySearch"
+                title="Category"
+                onChange={searchByCategory}
+              />
+              <SearchInput
+                data={state.orderCategories}
+                id="orderSearch"
+                title="Order By"
+                onChange={orderBy}
+              />
+            </div>
+          </div>
+          {state.characters.map((character) => (
+            <CharacterCard {...character} key={character.significanceIndex} />
+          ))}
+        </div>
       </section>
     </div>
   );
