@@ -106,6 +106,8 @@ export default function App() {
               />
             </div>
           </div>
+          {state.spinner && <p>{"loading"}</p>}
+          {!state.characters.length && <p>{"No characters found"}</p>}
           {state.characters.map((character) => (
             <CharacterCard {...character} key={character.significanceIndex} />
           ))}
