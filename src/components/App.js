@@ -4,13 +4,27 @@ import styles from "./App.module.scss";
 import * as API from "../api/characters";
 import * as helpers from "./helpers";
 import CharacterCard from "./cards/character";
+import SearchInput from "./inputs/search";
 
 // Character list is available in the public directory
+const orderCategories = [
+  {
+    id: 1,
+    title: "SignificanceIndex",
+    value: "significanceIndex",
+  },
+  {
+    id: 2,
+    title: "Alphabetical",
+    value: "alphabetical",
+  },
+];
 
 export default function App() {
   const [state, setState] = useState({
     characters: [],
     searchCategories: [],
+    orderCategories: orderCategories,
     spinner: false,
     err: "",
   });
@@ -44,6 +58,9 @@ export default function App() {
     getCharacters();
   }, [getCharacters]);
 
+  const searchByCategory = (e) => {};
+  const orderBy = (e) => {};
+
   return (
     <div className={styles.App}>
       <header className={styles["App-header"]}>
@@ -52,6 +69,18 @@ export default function App() {
       </header>
 
       <section className="App-content">
+        <SearchInput
+          data={state.searchCategories}
+          id="categorySearch"
+          title="Category"
+          onChange={searchByCategory}
+        />
+        <SearchInput
+          data={state.orderCategories}
+          id="orderSearch"
+          title="Order By"
+          onChange={orderBy}
+        />
         {state.characters.map((character) => (
           <CharacterCard {...character} key={character.significanceIndex} />
         ))}
